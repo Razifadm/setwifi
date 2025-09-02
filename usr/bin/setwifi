@@ -91,7 +91,7 @@ uci set wireless.default_radio1=wifi-iface
 uci set wireless.default_radio1.device='radio1'
 uci set wireless.default_radio1.network='lan'
 uci set wireless.default_radio1.mode='ap'
-uci set wireless.default_radio1.ssid="$ap_ssid-2Ghz"
+uci set wireless.default_radio1.ssid="$ap_ssid-2.4Ghz"
 uci set wireless.default_radio1.encryption="$encryption"
 [ "$encryption" != "none" ] && uci set wireless.default_radio1.key="$ap_key"
 
