@@ -72,7 +72,7 @@ uci set wireless.default_radio0=wifi-iface
 uci set wireless.default_radio0.device='radio0'
 uci set wireless.default_radio0.network='lan'
 uci set wireless.default_radio0.mode='ap'
-uci set wireless.default_radio0.ssid="$ap_ssid-5G"
+uci set wireless.default_radio0.ssid="$ap_ssid-5Ghz"
 uci set wireless.default_radio0.encryption="$encryption"
 [ "$encryption" != "none" ] && uci set wireless.default_radio0.key="$ap_key"
 
@@ -91,14 +91,14 @@ uci set wireless.default_radio1=wifi-iface
 uci set wireless.default_radio1.device='radio1'
 uci set wireless.default_radio1.network='lan'
 uci set wireless.default_radio1.mode='ap'
-uci set wireless.default_radio1.ssid="$ap_ssid-2G"
+uci set wireless.default_radio1.ssid="$ap_ssid-2Ghz"
 uci set wireless.default_radio1.encryption="$encryption"
 [ "$encryption" != "none" ] && uci set wireless.default_radio1.key="$ap_key"
 
 uci commit wireless
 wifi reload
 
-echo "✅ Dah set WiFi: ${ap_ssid}-2G & ${ap_ssid}-5G"
+echo "✅ Dah set WiFi: ${ap_ssid}-2Ghz & ${ap_ssid}-5Ghz"
 echo "---"
 echo "5G: Channel ${channel_5g}, HT Mode ${htmode_5g}"
 echo "2.4G: Channel ${channel_2g}, HT Mode ${htmode_2g}"
