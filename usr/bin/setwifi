@@ -51,11 +51,33 @@ fi
 
 # ===================== Pilihan untuk 5GHz ============================================
 get_choice_from_menu "Pilih Channel 5GHz" "36 100 149" channel_5g
-get_choice_from_menu "Pilih HT Mode 5GHz" "HE20 HE40 HE80 HE160" htmode_5g
+get_choice_from_menu "Pilih HT Mode 5GHz" "HE80 HE160" htmode_5g
 
 # ===================== Pilihan untuk 2.4GHz ============================================
 get_choice_from_menu "Pilih Channel 2.4GHz" "1 2 3 4 5 6 7 8 9 10 11 13" channel_2g
 get_choice_from_menu "Pilih HT Mode 2.4GHz" "HE20 HE40" htmode_2g
+
+# ===================== Pengesahan Akhir ============================================
+echo "---"
+echo "✅ Ini adalah konfigurasi yang akan ditetapkan:"
+echo "SSID 5GHz: ${ap_ssid}-5Ghz"
+echo "SSID 2.4GHz: ${ap_ssid}-2.4Ghz"
+if [ "$encryption" = "none" ]; then
+    echo "Password: TIADA (WiFi terbuka)"
+else
+    echo "Password: ${ap_key}"
+fi
+echo "Channel 5GHz: ${channel_5g} | HT Mode 5GHz: ${htmode_5g}"
+echo "Channel 2.4GHz: ${channel_2g} | HT Mode 2.4GHz: ${htmode_2g}"
+echo "---"
+
+echo -n "Adakah anda pasti? (y/n) "
+read confirm_choice
+
+if [ "$confirm_choice" != "y" ] && [ "$confirm_choice" != "Y" ]; then
+    echo "❌ Pembatalan oleh pengguna. Tiada perubahan dibuat."
+    exit 1
+fi
 
 # ===================== Konfigurasi Wireless 5GHz ============================================
 uci set wireless.radio0=wifi-device
@@ -65,7 +87,7 @@ uci set wireless.radio0.band='5g'
 uci set wireless.radio0.channel="$channel_5g"
 uci set wireless.radio0.htmode="$htmode_5g"
 uci set wireless.radio0.disabled='0'
-uci set wireless.radio0.country='SG'
+uci set wireless.radio0.country='US'
 uci set wireless.radio0.txpower='30'
 
 uci set wireless.default_radio0=wifi-iface
@@ -84,8 +106,8 @@ uci set wireless.radio1.band='2g'
 uci set wireless.radio1.channel="$channel_2g"
 uci set wireless.radio1.htmode="$htmode_2g"
 uci set wireless.radio1.disabled='0'
-uci set wireless.radio1.country='SG'
-uci set wireless.radio0.txpower='30'
+uci set wireless.radio1.country='US'
+uci set wireless.radio1.txpower='30'
 
 uci set wireless.default_radio1=wifi-iface
 uci set wireless.default_radio1.device='radio1'
@@ -98,8 +120,8 @@ uci set wireless.default_radio1.encryption="$encryption"
 uci commit wireless
 wifi reload
 
-echo "✅ Dah set WiFi: ${ap_ssid}-2Ghz & ${ap_ssid}-5Ghz"
 echo "---"
+echo "✅ WiFi sudah berjaya disetkan."
 echo "5G: Channel ${channel_5g}, HT Mode ${htmode_5g}"
 echo "2.4G: Channel ${channel_2g}, HT Mode ${htmode_2g}"
-[ "$encryption" = "none" ] && echo "⚠️  WiFi OPEN (takde password!)"
+[ "$encryption" = "none" ] && echo "⚠️  WiFi Terbuka (tiada password)"
