@@ -25,16 +25,16 @@ get_choice_from_menu() {
             eval "$result_var='$selected_value'"
             return
         else
-            echo "❌ Pilihan tidak sah. Sila masukkan nombor antara 1 hingga $((i-1))."
+            echo "❌ Wrong Choice! Pick Number between 1 until $((i-1))."
         fi
     done
 }
 
 # Tanya SSID
-echo -n "Nama WiFi (SSID): "
+echo -n "WiFi Name? (SSID): "
 read ap_ssid
 if [ -z "$ap_ssid" ]; then
-    echo "❌ SSID tak boleh kosong!"
+    echo "❌ SSID cannot be empty!"
     exit 1
 fi
 
@@ -59,11 +59,11 @@ get_choice_from_menu "Pilih HT Mode 2.4GHz" "HE20 HE40" htmode_2g
 
 # ===================== Pengesahan Akhir ============================================
 echo "---"
-echo "✅ Ini adalah konfigurasi yang akan ditetapkan:"
+echo "✅ New WiFi Setting as follows:"
 echo "SSID 5GHz: ${ap_ssid}-5Ghz"
 echo "SSID 2.4GHz: ${ap_ssid}-2.4Ghz"
 if [ "$encryption" = "none" ]; then
-    echo "Password: TIADA (WiFi terbuka)"
+    echo "Password: NONE (Open WiFi)"
 else
     echo "Password: ${ap_key}"
 fi
@@ -71,11 +71,15 @@ echo "Channel 5GHz: ${channel_5g} | HT Mode 5GHz: ${htmode_5g}"
 echo "Channel 2.4GHz: ${channel_2g} | HT Mode 2.4GHz: ${htmode_2g}"
 echo "---"
 
-echo -n "Adakah anda pasti? (y/n) "
+echo -n "Adakah anda pasti? (Y/N) "
 read confirm_choice
 
-if [ "$confirm_choice" != "y" ] && [ "$confirm_choice" != "Y" ]; then
-    echo "❌ Pembatalan oleh pengguna. Tiada perubahan dibuat."
+# Ubahsuai logik untuk terima ENTER sebagai 'y'
+if [ -z "$confirm_choice" ] || [ "$confirm_choice" = "y" ] || [ "$confirm_choice" = "Y" ]; then
+    echo "✅ setWiFi Done."
+    # ... sambung dengan arahan uci set
+else
+    echo "❌ Aborted by user."
     exit 1
 fi
 
