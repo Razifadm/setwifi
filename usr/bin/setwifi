@@ -24,8 +24,8 @@ uci set wireless.radio0=wifi-device
 uci set wireless.radio0.type='mac80211'
 uci set wireless.radio0.path='platform/soc@0/c000000.wifi'
 uci set wireless.radio0.band='5g'
-uci set wireless.radio0.channel='149'
-uci set wireless.radio0.htmode='HE80'
+uci set wireless.radio0.channel='100'
+uci set wireless.radio0.htmode='HE160'
 uci set wireless.radio0.disabled='0'
 uci set wireless.radio0.country='US'
 
@@ -33,7 +33,7 @@ uci set wireless.default_radio0=wifi-iface
 uci set wireless.default_radio0.device='radio0'
 uci set wireless.default_radio0.network='lan'
 uci set wireless.default_radio0.mode='ap'
-uci set wireless.default_radio0.ssid="$ap_ssid-5G"
+uci set wireless.default_radio0.ssid="$ap_ssid-5Ghz"
 uci set wireless.default_radio0.encryption="$encryption"
 [ "$encryption" != "none" ] && uci set wireless.default_radio0.key="$ap_key"
 
@@ -51,7 +51,7 @@ uci set wireless.default_radio1=wifi-iface
 uci set wireless.default_radio1.device='radio1'
 uci set wireless.default_radio1.network='lan'
 uci set wireless.default_radio1.mode='ap'
-uci set wireless.default_radio1.ssid="$ap_ssid-2G"
+uci set wireless.default_radio1.ssid="$ap_ssid-2.4Ghz"
 uci set wireless.default_radio1.encryption="$encryption"
 [ "$encryption" != "none" ] && uci set wireless.default_radio1.key="$ap_key"
 
