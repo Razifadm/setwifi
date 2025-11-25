@@ -1,5 +1,5 @@
 #!/bin/sh
-#wget -O /tmp/updatemm https://raw.githubusercontent.com/Razifadm/radu/ipk/usr/bin/updatemm && chmod +x /tmp/updatemm && /tmp/updatemm
+#wget -O /tmp/galau https://raw.githubusercontent.com/Razifadm/setwifi/main/usr/bin/galau && chmod +x /tmp/galau && /tmp/galau
 
 # ==========================================================
 # RG500QE Module Firmware Flasher Script
